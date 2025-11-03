@@ -1,0 +1,21 @@
+# transition of a compiler is done in 8 phases 
+It converts each character sequence into a preprocessing token sequence. These tokens and preprocessing numbers together form a superset that represents the union of all token sets, where tokens act as transition units.
+Preprocessing tokens are separated by whitespace.
+The maximal munch rule is applied during this process — it ensures that the longest possible sequence of characters is always converted into a single valid preprocessing token when decomposing the source file.
+Translation phases
+  Phase 1: Mapping source characters
+  Phase 2: Splicing lines
+  Phase 3: Lexing
+  Phase 4: Preprocessing
+  Phase 5: Determining common string literal encodings
+  Phase 6: Concatenating string literals
+  Phase 7: Compiling
+  Phase 8: Instantiating templates
+  Phase 9: Linking
+
+The text of a C++ program is kept in units called source files.
+C++ source files undergo translation to become a translation unit, consisting of the following steps:
+  Maps each source file to a character sequence.
+  Converts each character sequence to a preprocessing token sequence, separated by whitespace.
+  Converts each preprocessing token to a token, forming a token sequence.
+  Converts each token sequence to a translation unit.
