@@ -1,0 +1,101 @@
+Introduction
+  In old computers, CPU and memory were about the same speed.
+  Today, CPUs are way faster than memory → that gap causes delays.
+  Fixing slow memory needs better hardware (RAM design, controllers, caches, DMA).
+  The paper focuses on explaining caches and memory to help programmers write faster code.
+
+1️⃣ What is Memory?
+Memory = where the CPU stores and retrieves data while running programs.
+Think of it like your desk workspace:
+The CPU = you (the worker).
+Memory = your desk where you keep tools/papers you’re working with.
+Disk = the storage cabinet (slow but large).
+💡 Rule #1: Closer = faster, Smaller = faster, Bigger = slower.
+
+⚙️ 2️⃣ Memory Hierarchy (The “Speed Pyramid”)
+Level	          Type	      Size  	    Speed	          Analogy
+CPU Registers	  Small  	    Few bytes	  ⚡ Super fast	  In your hand
+L1 Cache	      Tiny	      KBs	        ⚡⚡ Fast	    On your desk
+L2 Cache  	    Medium	    MBs	        ⚡ Fast        	In your drawer
+L3 Cache	      Bigger	    MBs	        ⚡ Okay	        In your room
+RAM	            Large	      GBs	        🐢 Slower        In another room
+SSD	            Huge	      TBs        	🐢🐢 Slow      	In your car
+HDD	            Bigger	    TBs	        🐢🐢🐢 Very slow	  Across town
+Network/Cloud	  Infinite   	—          	🐌 Slowest	    Other city
+
+👉 CPU works fastest with data closest to it.
+
+⚙️ 3️⃣ CPU Registers
+These are tiny storage cells inside the CPU that hold the most active variables.
+Example: while doing a + b, both a and b are loaded into registers.
+Speed: ~1 nanosecond (instant).
+Limitation: only a few exist — so compiler decides what to keep there.
+
+⚡ 4️⃣ CPU Cache (L1, L2, L3)
+🧩 What It Is:
+Cache is small, super-fast memory between CPU and RAM.
+It keeps recently used data so CPU doesn’t wait for RAM.
+💡 Example:
+You’re reading a book.
+You keep the current page on your desk (cache).
+The rest is in the shelf (RAM).
+If you flip between nearby pages → fast.
+If you jump to random chapters → slower (cache miss).
+🧠 Important:
+L1 Cache: per-core, smallest and fastest.
+L2 Cache: shared per-core, a bit bigger.
+L3 Cache: shared among all cores, slower but huge.
+Each cache “talks” in cache lines (usually 64 bytes chunks).
+🚨 Cache Miss:
+When data is not in cache → CPU fetches from RAM (100x slower).
+So, you want to reuse nearby data.
+
+💾 5️⃣ RAM (Main Memory)
+RAM (DRAM) is where most active data lives.
+It’s fast but not instant — ~100 ns latency.
+RAM is made of tiny capacitors that need refreshing (hence slower).
+Accessing sequential memory is fast (burst mode). Random access is slow.
+💡 Example:
+Looping through int arr[1000000] sequentially = ✅ fast.
+Jumping around arr[random()] = 🐢 slow.
+
+⚙️ 6️⃣ Virtual Memory
+The OS gives each process its own private memory space (virtual addresses).
+Real physical memory is mapped behind the scenes.
+The OS and MMU (Memory Management Unit) translate addresses → physical.
+This allows:
+Process isolation (no program can touch another’s memory).
+Easier memory allocation.
+Paging and swapping (use disk when RAM full).
+💡 Example:
+Your program thinks it has 4 GB, but physically it could be spread all over the RAM.
+
+🧩 7️⃣ Paging & Swapping
+Memory is divided into pages (usually 4 KB each).
+When RAM fills up, OS moves least-used pages to disk (swap).
+If your program uses swapped memory → super slow.
+💡 Example:
+If you alt-tab between many Chrome tabs, you’ll see lag — that’s swapping.
+
+🧠 8️⃣ NUMA (Non-Uniform Memory Access)
+In multi-CPU systems, each CPU has its own local RAM.
+Accessing local memory is fast; accessing another CPU’s memory is slower.
+So threads should work on data near their CPU.
+💡 Example:
+Imagine each friend (CPU) has their own fridge (RAM).
+If you always take from your friend’s fridge instead of yours, it’s slower.
+
+⚙️ 9️⃣ Memory Bandwidth vs Latency
+Bandwidth: how much data per second you can move.
+🧠 Like a highway’s width.
+Latency: how long one trip takes.
+🕒 Like travel time from start to destination.
+CPUs hide latency with prefetching, caching, and out-of-order execution.
+💡 Example:
+A 4-lane road (high bandwidth) doesn’t help if your destination is far (high latency).
+
+🧩 10️⃣ Cache Coherency (for Multi-core CPUs)
+Each CPU core has its own cache → same variable may exist in multiple caches.
+Coherency protocols (like MESI) ensure all cores see the same value.
+💡 Example:
+Two people editing the same Google Doc — both should see updates instantly.
