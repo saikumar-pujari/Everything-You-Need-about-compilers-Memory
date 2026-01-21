@@ -399,6 +399,109 @@ do
     fi
 done
 
+# 📋 SELECT MENU - The OG Multiple Choice Vibe
+# ============================================
+# Yo this is literally like creating a dropdown menu in the terminal, no cap
+# It's giving "pick your fighter" energy 🎮
+
+select name in mark kumar pujari nikhil sony
+do 
+    case $name in
+    mark )
+        echo 'saikumar' ;;  # If they picked mark, we print saikumar (plot twist fr)
+    * )
+        echo 'nikhil';;     # Anything else? Nikhil is the default king 👑
+    esac
+   echo $name                # Shows what they actually picked
+done
+
+# TL;DR: This hits different - bash literally creates a numbered list 
+# and you just type the number. It's lowkey genius ngl 💯
+
+
+# 🔁 FOR LOOP WITH CONTINUE - Skip the Mid Numbers
+# ============================================
+# This loop is basically like "I'm counting but 3 is canceled" energy ❌
+
+for ((i=0;i<6;i++)); do   # Classic C-style loop (0 to 5, we love to see it)
+if [ $i -eq 3 ]           # When we hit 3...
+then
+    continue               # SKIP IT! We don't acknowledge 3's existence 🚫
+fi
+echo $i                    # Print everything except 3 (rip to 3)
+done
+
+# Output be like: 0 1 2 4 5 (3 got ghosted 👻)
+# 'continue' = skip to next iteration
+# 'break' would be rage quit the whole loop 🏃‍♂️💨
+
+
+# 🎯 FUNCTIONS - Custom Commands Hit Different
+# ============================================
+# Functions are literally your own custom bash commands, it's chef's kiss 👨‍🍳💋
+
+function name(){          # Define a function called "name"
+    echo 'skipper'       # It just yells SKIPPER when called
+}
+function quit(){          # Another function
+  exit                    # This one says "aight imma head out" 🚪
+}
+name                      # Call the function (prints: SKIPPER)
+quit                      # Dips immediately after, script ends
+
+# Highkey useful when you got repetitive tasks - don't repeat yourself bestie ✨
+
+
+# 🔒 LOCAL VS GLOBAL VARIABLES - The Scope Drama
+# ============================================
+# This is giving "what happens in the function stays in the function" 🤫
+
+function sai(){
+    local name='SKIPPER'  # 'local' means this variable is TRAPPED in the function
+}
+sai                        # Run the function
+echo "$name"               # Try to print $name... but it's EMPTY outside! 
+
+# Without 'local', variables are global (everyone can see them)
+# With 'local', it's function-only (privacy mode activated) 🔐
+
+
+# 🛡️ READONLY VARIABLES - Locked In Forever
+# ============================================
+# Once you make something readonly, it's PERMANENT. No takesies backsies! 🔒
+
+name='SKIPPER'           # Set the variable
+readonly name             # Lock it in (it's giving commitment issues solution)
+name='niki'               # Try to change it... NOPE! ❌
+echo $name                # Still prints 'SKIPPER'
+
+# Bash will literally throw an error like "readonly variable" 
+# It's the digital equivalent of carving something in stone fr 🪨
+# Fun fact: You can also do `readonly -f` to make FUNCTIONS readonly!
+
+
+# 🆔 PROCESS ID - Who Am I Even
+# ============================================
+# $$ = Your script's ID number in the system. Main character energy 🌟
+
+echo "pis:$$"             # Prints your script's process ID
+# # Output might be: pis:12345
+
+# This slaps when you need to:
+# - Create unique temp files (no_cap_temp_$$.txt)
+# - Debug which process is which
+# - Feel important knowing your script has an ID badge 🎫
+
+# Pro tip: Kill your script from another terminal with `kill $$` 💀
+
+
+# ============================================
+# 🎬 DIRECTOR'S CUT: DEBUGGING TIPS
+# ============================================
+# Run with: bash -x script.sh  (shows every command as it runs - spoiler mode)
+# Or add at top: set -x  (debug mode ON) / set +x  (debug mode OFF)
+# It's like watching your code with subtitles, bussin for finding bugs 🐛🔍
+
 
 # ========================================
 # END OF GUIDE
